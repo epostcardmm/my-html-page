@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0029)http://127.0.0.1:5500/11.html -->
-<html lang="my"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number 1 Photo Collage</title>
+    <title>Architect Desk Lamp Birthday Letter</title>
     <style>
+        :root {
+            --bg-color: #0c0a10;
+            --paper-color: #faf4e8; 
+            --text-color: #2c1a14;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,151 +18,408 @@
         }
 
         body {
-            background-color: #f9f9f9;
+            background-color: var(--bg-color);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+            transition: background-color 0.8s ease;
         }
 
-        .container {
-            background: #ffffff;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        body.lamp-on {
+            background-color: #1a1424;
+        }
+
+        /* စားပွဲပြင် Workspace - Lamp နှင့် Card အကွာအဝေး (gap) ကို 100px သို့ ပြင်ထားပါသည် */
+        .workspace {
+            position: relative;
+            width: 900px;
+            height: 600px;
             display: flex;
-            align-items: center;
-            gap: 40px;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 100px;
+            padding-bottom: 60px;
         }
 
-        /* ဓာတ်ပုံများ "1" ပုံစံ စီမည့် Grid Layout */
-        .number-one-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 45px); /* ကော်လံ ၇ ခု */
-            grid-auto-rows: 45px;                   /* အတန်း အမြင့် */
-            gap: 3px;                               /* ပုံကြား အကွာအဝေး */
+        /* =======================================================
+           💡 ARCHITECT SWING-ARM LAMP
+           ======================================================= */
+        .architect-lamp {
+            position: relative;
+            width: 260px;
+            height: 500px;
+            z-index: 10;
+            cursor: pointer;
         }
 
-        .grid-img {
-            width: 100%;
+        /* အောက်ခံ Base */
+        .lamp-base-plate {
+            position: absolute;
+            bottom: 0;
+            left: 30px;
+            width: 130px;
+            height: 22px;
+            background: linear-gradient(180deg, #333 0%, #111 100%);
+            border-radius: 65px / 11px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        }
+
+        .lamp-base-knob {
+            position: absolute;
+            bottom: 20px;
+            left: 82px;
+            width: 26px;
+            height: 25px;
+            background: linear-gradient(90deg, #222, #444, #222);
+            border-radius: 4px 4px 0 0;
+        }
+
+        /* Lower Arm */
+        .lower-arm-group {
+            position: absolute;
+            bottom: 40px;
+            left: 90px;
+            width: 14px;
+            height: 180px;
+            transform-origin: bottom center;
+            transform: rotate(-25deg);
+        }
+
+        .arm-rod {
+            position: absolute;
+            width: 4px;
             height: 100%;
-            object-fit: cover;
+            background: #222;
             border-radius: 2px;
         }
+        .arm-rod.left { left: 0; }
+        .arm-rod.right { right: 0; }
 
-        /* ဘေးဘက်မှ စာတမ်း Style */
-        .text-section {
+        /* Middle Joint & Springs */
+        .middle-joint {
+            position: absolute;
+            bottom: 205px;
+            left: 13px;
+            width: 20px;
+            height: 20px;
+            background: #111;
+            border-radius: 50%;
+            border: 2px solid #444;
+            z-index: 2;
+        }
+
+        .spring-wire {
+            position: absolute;
+            bottom: 60px;
+            left: 75px;
+            width: 8px;
+            height: 120px;
+            background: repeating-linear-gradient(0deg, #666 0px, #666 2px, transparent 3px, transparent 6px);
+            transform: rotate(-25deg);
+            opacity: 0.8;
+        }
+
+        /* Upper Arm */
+        .upper-arm-group {
+            position: absolute;
+            bottom: 215px;
+            left: 20px;
+            width: 14px;
+            height: 170px;
+            transform-origin: bottom center;
+            transform: rotate(35deg);
+        }
+
+        /* Dome Shade */
+        .lamp-head-assembly {
+            position: absolute;
+            top: 60px;
+            left: 85px;
+            width: 160px;
+            height: 130px;
+            z-index: 5;
+        }
+
+        .shade-connector {
+            position: absolute;
+            top: 0;
+            left: 35px;
+            width: 30px;
+            height: 35px;
+            background: linear-gradient(90deg, #111, #333, #111);
+            border-radius: 15px 15px 0 0;
+            transform: rotate(-20deg);
+        }
+
+        .lamp-dome-shade {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 150px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #333, #111 80%);
+            border-radius: 80px 80px 10px 10px;
+            transform: rotate(-30deg);
+            box-shadow: inset -2px -5px 10px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .shade-inner-glow {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background: #222;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        body.lamp-on .shade-inner-glow {
+            background: #fff8d6;
+            box-shadow: 0 0 25px 8px #ffdf6d;
+        }
+
+        /* Hint Tag */
+        .lamp-click-hint {
+            position: absolute;
+            top: 20px;
+            right: 0px;
+            background: #ffd700;
+            color: #000;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 4px;
+            animation: bounce 1.2s infinite alternate;
+            pointer-events: none;
+        }
+
+        body.lamp-on .lamp-click-hint { display: none; }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        /* =======================================================
+           ✉️ ENVELOPE & LETTER CONTAINER
+           ======================================================= */
+        .card-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(30px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+            z-index: 3;
+            margin-bottom: 20px;
         }
 
-        .text-year {
-            font-size: 64px;
+        body.lamp-on .card-container {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* စာအိတ် အရွယ်အစားနှင့် သေသပ်မှု ပြင်ဆင်ချက် */
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 210px;
+            cursor: pointer;
+        }
+
+        /* PNG ပုံ အချိုးအစားမှန်အောင် ပြင်ထားပါသည် */
+        .envelope-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover .envelope-img {
+            transform: scale(1.03);
+        }
+
+        /* 📄 Letter Paper */
+        .letter-paper {
+            position: absolute;
+            bottom: 10px; left: 10px;
+            width: 300px;
+            height: 420px; 
+            background: #faf4e8;
+            padding: 30px 20px;
+            border-radius: 6px;
+            z-index: -1;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 15px rgba(100,70,40,0.1), 0 8px 20px rgba(0,0,0,0.3);
+            border: 1px solid #e3d7c3;
+            font-family: 'Courier New', Courier, monospace;
+            transform: translateY(0);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s;
+        }
+
+        .letter-title {
+            font-size: 1.2rem;
             font-weight: bold;
-            letter-spacing: 12px;
             text-align: center;
-            line-height: 1.2;
-            color: #111;
+            color: #3b2219;
+            margin-bottom: 15px;
         }
 
-        .text-with-you {
-            font-family: 'Brush Script MT', cursive, sans-serif;
-            font-size: 36px;
-            margin-top: 10px;
-            color: #444;
+        .letter-content p {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .sticker-photo {
+            position: absolute;
+            bottom: 20px; right: 20px;
+            width: 55px; height: 55px;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transform: rotate(5deg);
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .sticker-photo:hover { transform: rotate(-2deg) scale(1.1); }
+
+        /* Open Envelope Animation */
+        .envelope.open .letter-paper {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 8;
+            transform: translateY(-140px) rotate(1deg); 
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+
+        .modal-body {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 320px;
+        }
+
+        .modal-body img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- "1" ပုံစံ Photo Grid -->
-        <div class="number-one-grid">
-
-            <!-- ၁။ "1" ရဲ့ အပေါ် အချွန်/အစွန်းပိုင်း (Top Flag) -->
-            <img class="grid-img" style="grid-column: 3; grid-row: 1;" src="./Number 1 Photo Collage_files/704-100x100.jpg">
-            <img class="grid-img" style="grid-column: 2; grid-row: 2;" src="./Number 1 Photo Collage_files/8-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 2;" src="./Number 1 Photo Collage_files/248-100x100.jpg">
-
-            <!-- ၂။ "1" ရဲ့ အလယ် ဒေါင်လိုက်တိုင် (Vertical Column) -->
-            <!-- တန်း ၁ မှ ၆ အထိ ၂ ကွက်စီ ပူးတွဲထားခြင်း -->
-            <img class="grid-img" style="grid-column: 3; grid-row: 3;" src="./Number 1 Photo Collage_files/274-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 3;" src="./Number 1 Photo Collage_files/413-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 4;" src="./Number 1 Photo Collage_files/8-100x100(1).jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 4;" src="./Number 1 Photo Collage_files/410-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 5;" src="./Number 1 Photo Collage_files/809-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 5;" src="./Number 1 Photo Collage_files/583-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 6;" src="./Number 1 Photo Collage_files/434-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 6;" src="./Number 1 Photo Collage_files/272-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 7;" src="./Number 1 Photo Collage_files/481-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 7;" src="./Number 1 Photo Collage_files/1033-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 8;" src="./Number 1 Photo Collage_files/1081-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 8;" src="./Number 1 Photo Collage_files/633-100x100.jpg">
-
-            <!-- ၃။ "1" ရဲ့ အောက်ခြေ အလျားလိုက်အပြား (Bottom Base) -->
-            <img class="grid-img" style="grid-column: 1; grid-row: 9;" src="./Number 1 Photo Collage_files/151-100x100.jpg">
-            <img class="grid-img" style="grid-column: 2; grid-row: 9;" src="./Number 1 Photo Collage_files/198-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 9;" src="./Number 1 Photo Collage_files/496-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 9;" src="./Number 1 Photo Collage_files/875-100x100.jpg">
-            <img class="grid-img" style="grid-column: 5; grid-row: 9;" src="./Number 1 Photo Collage_files/268-100x100.jpg">
-            <img class="grid-img" style="grid-column: 6; grid-row: 9;" src="./Number 1 Photo Collage_files/811-100x100.jpg">
+    <div class="workspace">
+        <!-- 💡 Architect Swing-Arm Lamp -->
+        <div class="architect-lamp" onclick="toggleLamp()">
+            <div class="lamp-click-hint">Click Lamp 💡</div>
             
-            <img class="grid-img" style="grid-column: 1; grid-row: 10;" src="./Number 1 Photo Collage_files/297-100x100.jpg">
-            <img class="grid-img" style="grid-column: 2; grid-row: 10;" src="./Number 1 Photo Collage_files/170-100x100.jpg">
-            <img class="grid-img" style="grid-column: 3; grid-row: 10;" src="./Number 1 Photo Collage_files/381-100x100.jpg">
-            <img class="grid-img" style="grid-column: 4; grid-row: 10;" src="./Number 1 Photo Collage_files/810-100x100.jpg">
-            <img class="grid-img" style="grid-column: 5; grid-row: 10;" src="./Number 1 Photo Collage_files/89-100x100.jpg">
-            <img class="grid-img" style="grid-column: 6; grid-row: 10;" src="./Number 1 Photo Collage_files/281-100x100.jpg">
+            <div class="lamp-base-plate"></div>
+            <div class="lamp-base-knob"></div>
 
+            <div class="spring-wire"></div>
+
+            <div class="lower-arm-group">
+                <div class="arm-rod left"></div>
+                <div class="arm-rod right"></div>
+            </div>
+
+            <div class="middle-joint"></div>
+
+            <div class="upper-arm-group">
+                <div class="arm-rod left"></div>
+                <div class="arm-rod right"></div>
+            </div>
+
+            <div class="lamp-head-assembly">
+                <div class="shade-connector"></div>
+                <div class="lamp-dome-shade">
+                    <div class="shade-inner-glow"></div>
+                </div>
+            </div>
         </div>
 
-        <!-- ဘေးဘက် စာတမ်း -->
-        <div class="text-section">
-            <div class="text-year">
-                Y<br>E<br>A<br>R
+        <!-- ✉️ Envelope & Card Area -->
+        <div class="card-container">
+            <div class="envelope" id="envelope" onclick="toggleLetter()">
+                <img src="https://i.ibb.co/JWycnnh9/pngegg.png" alt="Envelope" class="envelope-img">
+                
+                <div class="letter-paper" onclick="event.stopPropagation()">
+                    <div class="letter-title">🎉</div>
+                    <div class="letter-content">
+                        <p>နင်ကတကယ်တော့ ငါ့ရဲ့လှပတဲ့ရူပကာကိုနင်ကချစ်တာပါ</p> 
+                        <p>ငါ့ရဲ့အတွင်းစိတ်ကိုနင်ချစ်တာမဟုတ်ဘူး လှတာမမက်နဲ့မယ်နှင်း လှတာမမက်နဲ့ .. </p>
+                        <p>ငါလိုလူချောလူဖြောင့်တစ်ယောက်ကို နင်ရွေးချယ်တာ </p>
+                        <p><strong>နင်မှားတာပဲ နင်မှားတာပဲ</strong></p>
+                    </div>
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21mdDBybHVwZ2szdmhkOWV4MXAyb3JkNDBzbzQ5eTQwdDl2bzJyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/naAaDvbAoOYdW/giphy.gif" class="sticker-photo" onclick="openPhoto(event)">
+                </div>
             </div>
-            <div class="text-with-you">with you</div>
         </div>
     </div>
 
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
+    <!-- Modal Photo View -->
+    <div class="modal-overlay" id="modal" onclick="closePhoto()">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21mdDBybHVwZ2szdmhkOWV4MXAyb3JkNDBzbzQ5eTQwdDl2bzJyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/naAaDvbAoOYdW/giphy.gif">
+            <p style="font-size: 0.85rem; color: #555;">Mwahh Mal Hnin</p>
+        </div>
+    </div>
 
-</body></html>
+    <script>
+        const envelope = document.getElementById('envelope');
+        const modal = document.getElementById('modal');
+
+        function toggleLamp() {
+            document.body.classList.toggle('lamp-on');
+            if (!document.body.classList.contains('lamp-on')) {
+                envelope.classList.remove('open');
+            }
+        }
+
+        function toggleLetter() {
+            envelope.classList.toggle('open');
+        }
+
+        function openPhoto(e) {
+            e.stopPropagation();
+            modal.classList.add('show');
+        }
+
+        function closePhoto() {
+            modal.classList.remove('show');
+        }
+    </script>
+</body>
+</html>
