@@ -7,15 +7,15 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Pyidaungsu','Segoe UI',Tahoma,sans-serif}
 body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#fbc2eb 0%,#a6c1ee 100%);overflow:hidden;position:relative;padding:16px}
-.container{background:rgba(255,255,255,.95);padding:24px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.15);text-align:center;max-width:400px;width:100%;z-index:10;transition:all .4s ease;max-height:100%;overflow-y:auto}
-.gif-container img{width:140px;height:140px;object-fit:cover;border-radius:14px;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto}
-h1{font-size:18px;color:#333;margin-bottom:16px;line-height:1.5;word-break:break-word}
+.container{background:transparent;padding:24px;border-radius:18px;text-align:center;max-width:400px;width:100%;z-index:10;transition:all .4s ease;max-height:100%;overflow-y:auto;text-shadow:0 1px 3px rgba(255,255,255,.6)}
+.gif-container img{width:140px;height:140px;object-fit:cover;border-radius:14px;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+h1{font-size:18px;color:#1e293b;margin-bottom:16px;line-height:1.5;word-break:break-word;font-weight:600}
 .btn-group{display:flex;justify-content:center;gap:16px;position:relative;flex-wrap:wrap}
 button{padding:10px 24px;font-size:15px;font-weight:bold;border:none;border-radius:50px;cursor:pointer;transition:transform .2s,background-color .2s;white-space:nowrap}
 .btn-yes{background-color:#ff4b2b;color:#fff;box-shadow:0 4px 15px rgba(255,75,43,.4)}
 .btn-yes:hover{background-color:#ff416c;transform:scale(1.05)}
-.btn-no{background-color:#e0e0e0;color:#333;position:relative;transition:all .2s ease-out}
-.payment-box{background:#f8f9fa;border:1px dashed #d6d8db;padding:12px;border-radius:10px;margin-top:12px;margin-bottom:12px}
+.btn-no{background-color:#e0e0e0;color:#333;position:relative;transition:all .2s ease-out;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.payment-box{background:rgba(248,249,250,.9);border:1px dashed #d6d8db;padding:12px;border-radius:10px;margin-top:12px;margin-bottom:12px;backdrop-filter:blur(4px)}
 .payment-box p{font-size:13px;color:#495057;margin-bottom:6px;font-weight:bold}
 .copy-btn{background-color:#2b5876;color:#fff;border:none;padding:8px 14px;font-size:13px;border-radius:8px;cursor:pointer;font-weight:bold;transition:background .2s;width:100%}
 .copy-btn:hover{background-color:#1e3c72}
@@ -46,7 +46,16 @@ const THANK_TEXT="Yay! အဲ့တာဆို လွှဲလိုက်တ�
 const PAYMENT_LABEL="Kpay - WavePay";
 const PHONE_NUMBER="097977*****";
 let warningIndex=0,yesScale=1;
+
+let audioCtx=null;
+function getAudioContext(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
+function playTone(freq,duration,type,volume,startTime){try{const ctx=getAudioContext();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type=type||'sine';osc.frequency.setValueAtTime(freq,ctx.currentTime+(startTime||0));gain.gain.setValueAtTime(volume||0.15,ctx.currentTime+(startTime||0));gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+(startTime||0)+duration);osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+(startTime||0));osc.stop(ctx.currentTime+(startTime||0)+duration)}catch(e){}}
+function playYesSound(){try{getAudioContext().resume()}catch(e){};playTone(523.25,0.15,'sine',0.18,0);playTone(659.25,0.15,'sine',0.18,0.12);playTone(783.99,0.15,'sine',0.18,0.24);playTone(1046.50,0.4,'sine',0.2,0.36);playTone(1318.51,0.5,'triangle',0.12,0.5)}
+function playNoSound(){try{getAudioContext().resume()}catch(e){};playTone(400,0.1,'square',0.1,0);playTone(300,0.12,'square',0.1,0.08);playTone(200,0.18,'sawtooth',0.08,0.16)}
+function playCopySound(){try{getAudioContext().resume()}catch(e){};playTone(880,0.1,'sine',0.12,0);playTone(1174.66,0.15,'sine',0.12,0.08)}
+
 function handleNo(){
+playNoSound();
 const noBtn=document.getElementById('noBtn'),yesBtn=document.getElementById('yesBtn');
 const maxX=window.innerWidth-noBtn.offsetWidth-20,maxY=window.innerHeight-noBtn.offsetHeight-20;
 const randomX=Math.max(10,Math.floor(Math.random()*Math.max(10,maxX))),randomY=Math.max(10,Math.floor(Math.random()*Math.max(10,maxY)));
@@ -63,9 +72,11 @@ w.style.top=Math.max(10,y-40)+'px';
 document.body.appendChild(w);setTimeout(()=>w.remove(),1500);
 }
 function handleYes(){
+playYesSound();
 document.getElementById('mainContainer').innerHTML='<div class="gif-container"><img src="'+THANK_IMAGE+'" alt="Happy"></div><h1>'+THANK_TEXT+'</h1><div class="payment-box"><p>'+PAYMENT_LABEL+'</p><button class="copy-btn" id="copyBtn" onclick="copyNumber()">'+PHONE_NUMBER+' (Copy ရန်)</button></div>';
 }
 function copyNumber(){
+playCopySound();
 navigator.clipboard.writeText(PHONE_NUMBER).then(()=>{
 const b=document.getElementById('copyBtn');b.innerText='Copied! ✨';b.style.backgroundColor='#28a745';
 setTimeout(()=>{b.innerText=PHONE_NUMBER+' (Copy ရန်)';b.style.backgroundColor='#2b5876';},2000);
