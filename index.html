@@ -1,425 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architect Desk Lamp Birthday Letter</title>
-    <style>
-        :root {
-            --bg-color: #0c0a10;
-            --paper-color: #faf4e8; 
-            --text-color: #2c1a14;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            perspective: 1000px;
-            transition: background-color 0.8s ease;
-        }
-
-        body.lamp-on {
-            background-color: #1a1424;
-        }
-
-        /* စားပွဲပြင် Workspace - Lamp နှင့် Card အကွာအဝေး (gap) ကို 100px သို့ ပြင်ထားပါသည် */
-        .workspace {
-            position: relative;
-            width: 900px;
-            height: 600px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 100px;
-            padding-bottom: 60px;
-        }
-
-        /* =======================================================
-           💡 ARCHITECT SWING-ARM LAMP
-           ======================================================= */
-        .architect-lamp {
-            position: relative;
-            width: 260px;
-            height: 500px;
-            z-index: 10;
-            cursor: pointer;
-        }
-
-        /* အောက်ခံ Base */
-        .lamp-base-plate {
-            position: absolute;
-            bottom: 0;
-            left: 30px;
-            width: 130px;
-            height: 22px;
-            background: linear-gradient(180deg, #333 0%, #111 100%);
-            border-radius: 65px / 11px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-        }
-
-        .lamp-base-knob {
-            position: absolute;
-            bottom: 20px;
-            left: 82px;
-            width: 26px;
-            height: 25px;
-            background: linear-gradient(90deg, #222, #444, #222);
-            border-radius: 4px 4px 0 0;
-        }
-
-        /* Lower Arm */
-        .lower-arm-group {
-            position: absolute;
-            bottom: 40px;
-            left: 90px;
-            width: 14px;
-            height: 180px;
-            transform-origin: bottom center;
-            transform: rotate(-25deg);
-        }
-
-        .arm-rod {
-            position: absolute;
-            width: 4px;
-            height: 100%;
-            background: #222;
-            border-radius: 2px;
-        }
-        .arm-rod.left { left: 0; }
-        .arm-rod.right { right: 0; }
-
-        /* Middle Joint & Springs */
-        .middle-joint {
-            position: absolute;
-            bottom: 205px;
-            left: 13px;
-            width: 20px;
-            height: 20px;
-            background: #111;
-            border-radius: 50%;
-            border: 2px solid #444;
-            z-index: 2;
-        }
-
-        .spring-wire {
-            position: absolute;
-            bottom: 60px;
-            left: 75px;
-            width: 8px;
-            height: 120px;
-            background: repeating-linear-gradient(0deg, #666 0px, #666 2px, transparent 3px, transparent 6px);
-            transform: rotate(-25deg);
-            opacity: 0.8;
-        }
-
-        /* Upper Arm */
-        .upper-arm-group {
-            position: absolute;
-            bottom: 215px;
-            left: 20px;
-            width: 14px;
-            height: 170px;
-            transform-origin: bottom center;
-            transform: rotate(35deg);
-        }
-
-        /* Dome Shade */
-        .lamp-head-assembly {
-            position: absolute;
-            top: 60px;
-            left: 85px;
-            width: 160px;
-            height: 130px;
-            z-index: 5;
-        }
-
-        .shade-connector {
-            position: absolute;
-            top: 0;
-            left: 35px;
-            width: 30px;
-            height: 35px;
-            background: linear-gradient(90deg, #111, #333, #111);
-            border-radius: 15px 15px 0 0;
-            transform: rotate(-20deg);
-        }
-
-        .lamp-dome-shade {
-            position: absolute;
-            top: 25px;
-            left: 0;
-            width: 150px;
-            height: 100px;
-            background: radial-gradient(circle at 30% 30%, #333, #111 80%);
-            border-radius: 80px 80px 10px 10px;
-            transform: rotate(-30deg);
-            box-shadow: inset -2px -5px 10px rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            overflow: hidden;
-        }
-
-        .shade-inner-glow {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 20px;
-            background: #222;
-            transition: background 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        body.lamp-on .shade-inner-glow {
-            background: #fff8d6;
-            box-shadow: 0 0 25px 8px #ffdf6d;
-        }
-
-        /* Hint Tag */
-        .lamp-click-hint {
-            position: absolute;
-            top: 20px;
-            right: 0px;
-            background: #ffd700;
-            color: #000;
-            padding: 4px 8px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 4px;
-            animation: bounce 1.2s infinite alternate;
-            pointer-events: none;
-        }
-
-        body.lamp-on .lamp-click-hint { display: none; }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
-
-        /* =======================================================
-           ✉️ ENVELOPE & LETTER CONTAINER
-           ======================================================= */
-        .card-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            transform: translateX(30px) scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            pointer-events: none;
-            z-index: 3;
-            margin-bottom: 20px;
-        }
-
-        body.lamp-on .card-container {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            pointer-events: auto;
-        }
-
-        /* စာအိတ် အရွယ်အစားနှင့် သေသပ်မှု ပြင်ဆင်ချက် */
-        .envelope {
-            position: relative;
-            width: 320px;
-            height: 210px;
-            cursor: pointer;
-        }
-
-        /* PNG ပုံ အချိုးအစားမှန်အောင် ပြင်ထားပါသည် */
-        .envelope-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .envelope:hover .envelope-img {
-            transform: scale(1.03);
-        }
-
-        /* 📄 Letter Paper */
-        .letter-paper {
-            position: absolute;
-            bottom: 10px; left: 10px;
-            width: 300px;
-            height: 420px; 
-            background: #faf4e8;
-            padding: 30px 20px;
-            border-radius: 6px;
-            z-index: -1;
-            opacity: 0;
-            pointer-events: none;
-            box-shadow: inset 0 0 15px rgba(100,70,40,0.1), 0 8px 20px rgba(0,0,0,0.3);
-            border: 1px solid #e3d7c3;
-            font-family: 'Courier New', Courier, monospace;
-            transform: translateY(0);
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s;
-        }
-
-        .letter-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            color: #3b2219;
-            margin-bottom: 15px;
-        }
-
-        .letter-content p {
-            font-size: 0.85rem;
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .sticker-photo {
-            position: absolute;
-            bottom: 20px; right: 20px;
-            width: 55px; height: 55px;
-            border: 2px solid #fff;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            border-radius: 4px;
-            cursor: pointer;
-            transform: rotate(5deg);
-            object-fit: cover;
-            transition: transform 0.2s;
-        }
-
-        .sticker-photo:hover { transform: rotate(-2deg) scale(1.1); }
-
-        /* Open Envelope Animation */
-        .envelope.open .letter-paper {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 8;
-            transform: translateY(-140px) rotate(1deg); 
-        }
-
-        /* Modal Popup */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .modal-overlay.show { opacity: 1; pointer-events: auto; }
-
-        .modal-body {
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            max-width: 320px;
-        }
-
-        .modal-body img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Page</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Pyidaungsu','Segoe UI',Tahoma,sans-serif}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#fbc2eb 0%,#a6c1ee 100%);overflow:hidden;position:relative}
+.container{background:rgba(255,255,255,.95);padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15);text-align:center;max-width:440px;width:92%;z-index:10;transition:all .4s ease}
+.gif-container img{width:160px;height:160px;object-fit:cover;border-radius:15px;margin-bottom:15px}
+h1{font-size:20px;color:#333;margin-bottom:20px;line-height:1.5}
+.btn-group{display:flex;justify-content:center;gap:20px;position:relative}
+button{padding:12px 28px;font-size:16px;font-weight:bold;border:none;border-radius:50px;cursor:pointer;transition:transform .2s,background-color .2s}
+.btn-yes{background-color:#ff4b2b;color:#fff;box-shadow:0 4px 15px rgba(255,75,43,.4)}
+.btn-yes:hover{background-color:#ff416c;transform:scale(1.05)}
+.btn-no{background-color:#e0e0e0;color:#333;position:relative;transition:all .2s ease-out}
+.payment-box{background:#f8f9fa;border:1px dashed #d6d8db;padding:15px;border-radius:12px;margin-top:15px;margin-bottom:15px}
+.payment-box p{font-size:14px;color:#495057;margin-bottom:8px;font-weight:bold}
+.copy-btn{background-color:#2b5876;color:#fff;border:none;padding:8px 16px;font-size:14px;border-radius:8px;cursor:pointer;font-weight:bold;transition:background .2s}
+.copy-btn:hover{background-color:#1e3c72}
+.warning-popup{position:absolute;padding:10px 18px;background-color:#ff3366;color:#fff;font-size:14px;font-weight:bold;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.2);pointer-events:none;animation:popup 1.5s ease-out forwards;z-index:100}
+@keyframes popup{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1;transform:translateY(-10px) scale(1.1)}80%{opacity:1}100%{opacity:0;transform:translateY(-30px) scale(1)}}
+</style>
 </head>
 <body>
-
-    <div class="workspace">
-        <!-- 💡 Architect Swing-Arm Lamp -->
-        <div class="architect-lamp" onclick="toggleLamp()">
-            <div class="lamp-click-hint">Click Lamp 💡</div>
-            
-            <div class="lamp-base-plate"></div>
-            <div class="lamp-base-knob"></div>
-
-            <div class="spring-wire"></div>
-
-            <div class="lower-arm-group">
-                <div class="arm-rod left"></div>
-                <div class="arm-rod right"></div>
-            </div>
-
-            <div class="middle-joint"></div>
-
-            <div class="upper-arm-group">
-                <div class="arm-rod left"></div>
-                <div class="arm-rod right"></div>
-            </div>
-
-            <div class="lamp-head-assembly">
-                <div class="shade-connector"></div>
-                <div class="lamp-dome-shade">
-                    <div class="shade-inner-glow"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ✉️ Envelope & Card Area -->
-        <div class="card-container">
-            <div class="envelope" id="envelope" onclick="toggleLetter()">
-                <img src="https://i.ibb.co/JWycnnh9/pngegg.png" alt="Envelope" class="envelope-img">
-                
-                <div class="letter-paper" onclick="event.stopPropagation()">
-                    <div class="letter-title">🎉</div>
-                    <div class="letter-content">
-                        <p>နင်ကတကယ်တော့ ငါ့ရဲ့လှပတဲ့ရူပကာကိုနင်ကချစ်တာပါ</p> 
-                        <p>ငါ့ရဲ့အတွင်းစိတ်ကိုနင်ချစ်တာမဟုတ်ဘူး လှတာမမက်နဲ့မယ်နှင်း လှတာမမက်နဲ့ .. </p>
-                        <p>ငါလိုလူချောလူဖြောင့်တစ်ယောက်ကို နင်ရွေးချယ်တာ </p>
-                        <p><strong>နင်မှားတာပဲ နင်မှားတာပဲ</strong></p>
-                    </div>
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21mdDBybHVwZ2szdmhkOWV4MXAyb3JkNDBzbzQ5eTQwdDl2bzJyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/naAaDvbAoOYdW/giphy.gif" class="sticker-photo" onclick="openPhoto(event)">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Photo View -->
-    <div class="modal-overlay" id="modal" onclick="closePhoto()">
-        <div class="modal-body" onclick="event.stopPropagation()">
-            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21mdDBybHVwZ2szdmhkOWV4MXAyb3JkNDBzbzQ5eTQwdDl2bzJyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/naAaDvbAoOYdW/giphy.gif">
-            <p style="font-size: 0.85rem; color: #555;">Mwahh Mal Hnin</p>
-        </div>
-    </div>
-
-    <script>
-        const envelope = document.getElementById('envelope');
-        const modal = document.getElementById('modal');
-
-        function toggleLamp() {
-            document.body.classList.toggle('lamp-on');
-            if (!document.body.classList.contains('lamp-on')) {
-                envelope.classList.remove('open');
-            }
-        }
-
-        function toggleLetter() {
-            envelope.classList.toggle('open');
-        }
-
-        function openPhoto(e) {
-            e.stopPropagation();
-            modal.classList.add('show');
-        }
-
-        function closePhoto() {
-            modal.classList.remove('show');
-        }
-    </script>
+<div class="container" id="mainContainer">
+<div class="gif-container"><img id="gifImage" src="https://media.tenor.com/-807lbx6epMAAAAm/bubu-relax-bubududu.webp" alt="Cute Gif"></div>
+<h1 id="questionText">ကန်တော့ပါတယ် မုန့်ဖိုးလေးပေးပါလား .. ဟဲဟဲ</h1>
+<div class="btn-group">
+<button class="btn-yes" id="yesBtn" onclick="handleYes()">YES</button>
+<button class="btn-no" id="noBtn" onclick="handleNo()">NO</button>
+</div>
+</div>
+<script>
+const WARNINGS=["တကယ် မပေးဘူးလား? 🥺","ပေးရမယ်လေ... 💔","No လို့မရဘူးပေး 😭","မုန့်ဖိုး မုန့်ဖိုး... 🙏","ကန်တော့ထားတယ်လေ ... ✨","မပေးလို့မရဘူး... 🙈"];
+const THANK_IMAGE="https://i.ibb.co/04xP4rC/IMG-20261022-141557.jpg";
+const THANK_TEXT="Yay! အဲ့တာဆို လွှဲလိုက်တော့ ❤️";
+const PAYMENT_LABEL="Kpay - WavePay";
+const PHONE_NUMBER="097977*****";
+let warningIndex=0,yesScale=1;
+function handleNo(){
+const noBtn=document.getElementById('noBtn'),yesBtn=document.getElementById('yesBtn');
+const maxX=window.innerWidth-noBtn.offsetWidth-20,maxY=window.innerHeight-noBtn.offsetHeight-20;
+const randomX=Math.max(10,Math.floor(Math.random()*maxX)),randomY=Math.max(10,Math.floor(Math.random()*maxY));
+noBtn.style.position='fixed';noBtn.style.left=randomX+'px';noBtn.style.top=randomY+'px';
+yesScale+=.15;yesBtn.style.transform='scale('+yesScale+')';
+showWarning(randomX,randomY);
+}
+function showWarning(x,y){
+if(!WARNINGS.length)return;
+const w=document.createElement('div');w.className='warning-popup';
+w.innerText=WARNINGS[warningIndex%WARNINGS.length];warningIndex++;
+w.style.left=Math.min(window.innerWidth-180,x)+'px';w.style.top=Math.max(10,y-40)+'px';
+document.body.appendChild(w);setTimeout(()=>w.remove(),1500);
+}
+function handleYes(){
+document.getElementById('mainContainer').innerHTML='<div class="gif-container"><img src="'+THANK_IMAGE+'" alt="Happy"></div><h1>'+THANK_TEXT+'</h1><div class="payment-box"><p>'+PAYMENT_LABEL+'</p><button class="copy-btn" id="copyBtn" onclick="copyNumber()">'+PHONE_NUMBER+' (Copy ရန်)</button></div>';
+}
+function copyNumber(){
+navigator.clipboard.writeText(PHONE_NUMBER).then(()=>{
+const b=document.getElementById('copyBtn');b.innerText='Copied! ✨';b.style.backgroundColor='#28a745';
+setTimeout(()=>{b.innerText=PHONE_NUMBER+' (Copy ရန်)';b.style.backgroundColor='#2b5876';},2000);
+});
+}
+</script>
 </body>
 </html>
